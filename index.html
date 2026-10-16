@@ -1,0 +1,40 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>AulaPlan</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <h1>AulaPlan</h1>
+    <p>Organiza tu horario universitario</p>
+
+    <h2>Materias disponibles</h2>
+
+    <div class="materia">
+        <span>Matematica</span>
+        <button onclick="agregarMateria('Matematica')">Agregar</button>
+    </div>
+
+    <div class="materia">
+        <span>Programacion</span>
+        <button onclick="agregarMateria('Programacion')">Agregar</button>
+    </div>
+
+    <div class="materia">
+        <span>Electronica</span>
+        <button onclick="agregarMateria('Electronica')">Agregar</button>
+    </div>
+
+    <h2>Mis materias</h2>
+
+    <ul id="seleccion"></ul>
+
+    <p id="contador">Materias seleccionadas: 0</p>
+
+    <script src="js/app.js"></script>
+
+</body>
+</html>

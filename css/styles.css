@@ -1,0 +1,39 @@
+
+body {
+    font-family: Arial, sans-serif;
+    background: #eef3f8;
+    text-align: center;
+    padding: 30px;
+}
+
+h1 {
+    color: #2457a7;
+}
+
+.materia {
+    background: white;
+    margin: 10px auto;
+    padding: 12px;
+    max-width: 350px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+button {
+    background: #2457a7;
+    color: white;
+    padding: 8px 14px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #163b75;
+}
+
+li {
+    margin: 10px;
+}
