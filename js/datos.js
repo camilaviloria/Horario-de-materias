@@ -2,11 +2,10 @@
 const LIMITE_UC = 28;
 
 function obtenerMaterias() {
-    if (typeof MATERIAS === "undefined") {
-        return [];
-    }
+    const materias = typeof MATERIAS === "undefined" ? [] : MATERIAS;
+    const manuales = typeof materiasManuales === "undefined" ? [] : materiasManuales;
 
-    return MATERIAS;
+    return [...materias, ...manuales];
 }
 
 function obtenerBloques() {
@@ -20,9 +19,8 @@ function obtenerBloques() {
 function obtenerTrimestres() {
     const materias = obtenerMaterias();
 
-    return [...new Set(
-        materias.map(materia => materia.trimestre)
-    )].sort((a, b) => Number(a) - Number(b));
+    return [...new Set(materias.map(materia => materia.trimestre))]
+        .sort((a, b) => Number(a) - Number(b));
 }
 
 function buscarMateria(codigo) {

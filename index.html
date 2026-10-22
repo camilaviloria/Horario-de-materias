@@ -4,75 +4,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AulaPlan | Horario universitario</title>
+    <title>AulaPlan - Armador de Horarios</title>
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/print.css" media="print">
 </head>
 <body>
-    <header class="encabezado">
-        <div class="marca">
-            <span class="marca-icono">A</span>
-            <div>
-                <h1>AulaPlan</h1>
-                <p>Tu semana, mejor organizada.</p>
-            </div>
-        </div>
-        <span class="etiqueta">PLANIFICADOR ACADEMICO</span>
+    <header>
+        <h1>AulaPlan</h1>
+        <p>Organiza tus materias y crea tu horario universitario.</p>
     </header>
 
-    <main class="contenedor">
-        <section class="bienvenida">
-            <p class="sobre-titulo">ORGANIZA TU TRIMESTRE</p>
-            <h2>Construye un horario que funcione para ti.</h2>
-            <p>Explora las materias, selecciona tus opciones y prepara tu semana.</p>
-        </section>
-
+    <main>
         <section class="panel">
-            <div class="panel-titulo">
-                <div>
-                    <p class="sobre-titulo">PASO 01</p>
-                    <h2>Materias disponibles</h2>
-                </div>
-                <span id="total-materias" class="contador">0 materias</span>
-            </div>
+            <h2>Catalogo de materias</h2>
 
             <div class="filtros">
-                <input id="busqueda" type="search"
-                    placeholder="Buscar por codigo o nombre..."
-                    aria-label="Buscar materias">
+                <label for="busqueda">Buscar materia</label>
+                <input
+                    type="text"
+                    id="busqueda"
+                    placeholder="Codigo o nombre de la materia"
+                >
 
-                <select id="filtro-trimestre" aria-label="Filtrar por trimestre">
+                <label for="filtro-trimestre">Filtrar por trimestre</label>
+                <select id="filtro-trimestre">
                     <option value="">Todos los trimestres</option>
                 </select>
             </div>
 
-            <div id="catalogo" class="catalogo">
-                <p class="estado-vacio">Cargando materias...</p>
-            </div>
+            <p>Total de materias: <span id="total-materias">0</span></p>
+
+            <div id="catalogo"></div>
         </section>
 
-        <section class="panel panel-seleccion">
-            <div class="panel-titulo">
-                <div>
-                    <p class="sobre-titulo">PASO 02</p>
-                    <h2>Mi seleccion</h2>
-                </div>
-                <span id="contador-uc" class="contador">0 / 28 UC</span>
-            </div>
+        <section class="panel">
+            <h2>Materias seleccionadas</h2>
 
-            <div id="seleccion" class="seleccion">
-                <p class="estado-vacio">Todavia no has seleccionado materias.</p>
-            </div>
+            <p>
+                Unidades de credito:
+                <span id="contador-uc">0</span>
+            </p>
 
-            <p id="mensaje" class="mensaje" role="status" aria-live="polite"></p>
+            <div id="seleccion"></div>
+
+            <p id="mensaje"></p>
+        </section>
+
+        <section class="panel">
+            <h2>Agregar materia manualmente</h2>
+
+            <p>
+                Puedes registrar una materia temporal que no aparezca
+                en el catalogo original.
+            </p>
+
+            <form id="formulario-materia">
+                <label for="codigo-manual">Codigo</label>
+                <input
+                    id="codigo-manual"
+                    type="text"
+                    required
+                    maxlength="20"
+                    placeholder="Ejemplo: MAT101"
+                >
+
+                <label for="nombre-manual">Nombre de la materia</label>
+                <input
+                    id="nombre-manual"
+                    type="text"
+                    required
+                    maxlength="100"
+                    placeholder="Nombre de la materia"
+                >
+
+                <label for="trimestre-manual">Trimestre</label>
+                <input
+                    id="trimestre-manual"
+                    type="number"
+                    min="1"
+                    required
+                    placeholder="Ejemplo: 5"
+                >
+
+                <label for="uc-manual">Unidades de credito</label>
+                <input
+                    id="uc-manual"
+                    type="number"
+                    min="1"
+                    max="28"
+                    required
+                    placeholder="Ejemplo: 4"
+                >
+
+                <button type="submit">Agregar materia</button>
+            </form>
+
+            <p id="mensaje-manual" role="status"></p>
         </section>
     </main>
 
     <footer>
-        <p>AulaPlan · Planifica, compara y organiza tu horario.</p>
+        <p>AulaPlan - Proyecto universitario</p>
     </footer>
 
     <script src="data/bloques.js"></script>
     <script src="data/materias.js"></script>
+
     <script src="js/tiempo.js"></script>
     <script src="js/datos.js"></script>
     <script src="js/catalogo.js"></script>

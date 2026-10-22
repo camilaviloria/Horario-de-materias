@@ -1,4 +1,33 @@
 
+function actualizarFiltroTrimestres() {
+    const filtro = document.getElementById("filtro-trimestre");
+
+    if (!filtro) {
+        return;
+    }
+
+    const trimestreActual = filtro.value;
+
+    filtro.innerHTML = '<option value="">Todos los trimestres</option>';
+
+    obtenerTrimestres().forEach(trimestre => {
+        const opcion = document.createElement("option");
+
+        opcion.value = trimestre;
+        opcion.textContent = "Trimestre " + trimestre;
+
+        filtro.appendChild(opcion);
+    });
+
+    const existe = [...filtro.options].some(
+        opcion => opcion.value === trimestreActual
+    );
+
+    if (existe) {
+        filtro.value = trimestreActual;
+    }
+}
+
 function iniciarCatalogo() {
     const busqueda = document.getElementById("busqueda");
     const filtro = document.getElementById("filtro-trimestre");
@@ -7,12 +36,7 @@ function iniciarCatalogo() {
         return;
     }
 
-    obtenerTrimestres().forEach(trimestre => {
-        const opcion = document.createElement("option");
-        opcion.value = trimestre;
-        opcion.textContent = "Trimestre " + trimestre;
-        filtro.appendChild(opcion);
-    });
+    actualizarFiltroTrimestres();
 
     busqueda.addEventListener("input", mostrarCatalogo);
     filtro.addEventListener("change", mostrarCatalogo);
@@ -48,8 +72,7 @@ function mostrarCatalogo() {
     catalogo.innerHTML = "";
 
     if (contador) {
-        contador.textContent =
-            materiasFiltradas.length + " materias";
+        contador.textContent = materiasFiltradas.length + " materias";
     }
 
     if (materiasFiltradas.length === 0) {
