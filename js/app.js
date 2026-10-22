@@ -17,9 +17,13 @@ function iniciarGenerador() {
     boton.addEventListener("click", () => {
         const mensaje = document.getElementById("mensaje-generador");
         const resultados = document.getElementById("resultados-horarios");
-        const resumen = document.getElementById("resumen-horario");
 
         resultados.innerHTML = "";
+
+        const rejilla = document.getElementById("rejilla-horario");
+        const resumen = document.getElementById("resumen-horario");
+
+        rejilla.innerHTML = "";
         resumen.innerHTML = "";
 
         if (materiasSeleccionadas.length === 0) {
@@ -34,8 +38,7 @@ function iniciarGenerador() {
         if (sinSecciones.length > 0) {
             mensaje.textContent =
                 "Estas materias no tienen secciones disponibles: " +
-                sinSecciones.map(materia => materia.codigo).join(", ") +
-                ". No se pueden generar horarios hasta que tengan secciones.";
+                sinSecciones.map(materia => materia.codigo).join(", ");
             return;
         }
 
@@ -43,7 +46,7 @@ function iniciarGenerador() {
 
         if (horarios.length === 0) {
             mensaje.textContent =
-                "No se encontraron combinaciones sin choques para las materias seleccionadas.";
+                "No se encontraron horarios sin choques para esta seleccion.";
             return;
         }
 
@@ -61,92 +64,29 @@ function iniciarGenerador() {
             detalle.textContent =
                 horario.length + " materias incluidas.";
 
-            const boton = document.createElement("button");
-            boton.type = "button";
-            boton.textContent = "Ver este horario";
+            const botonVer = document.createElement("button");
+            botonVer.type = "button";
+            botonVer.textContent = "Ver este horario";
 
-            boton.addEventListener("click", () => {
-                mostrarResumenHorario(horario, indice + 1);
+            botonVer.addEventListener("click", () => {
+                mostrarRejilla(horario);
+                mostrarResumen(horario, indice + 1);
             });
 
-            tarjeta.append(titulo, detalle, boton);
+            tarjeta.append(titulo, detalle, botonVer);
 
             horario.forEach(item => {
                 const linea = document.createElement("p");
                 linea.className = "detalle-materia";
-
-                const seccion = item.seccion;
-                const nombreSeccion = seccion.id || "Sin identificador";
-
                 linea.textContent =
-                    item.materia.codigo + " - " +
-                    item.materia.nombre + " | Seccion: " +
-                    nombreSeccion;
+                    item.materia.codigo + " - " + item.materia.nombre +
+                    " | Seccion: " + (item.seccion.id || "Sin identificador");
 
                 tarjeta.appendChild(linea);
             });
 
             resultados.appendChild(tarjeta);
         });
-    });
-}
-
-function mostrarResumenHorario(horario, numero) {
-    const resumen = document.getElementById("resumen-horario");
-
-    if (!resumen) {
-        return;
-    }
-
-    resumen.innerHTML = "";
-
-    const titulo = document.createElement("h3");
-    titulo.textContent = "Horario seleccionado: " + numero;
-    resumen.appendChild(titulo);
-
-    horario.forEach(item => {
-        const materia = item.materia;
-        const seccion = item.seccion;
-
-        const bloque = document.createElement("article");
-        bloque.className = "tarjeta-seleccion";
-
-        const nombre = document.createElement("h4");
-        nombre.textContent = materia.codigo + " - " + materia.nombre;
-        bloque.appendChild(nombre);
-
-        const profesor = document.createElement("p");
-        profesor.textContent =
-            "Profesor: " + (seccion.profesor || "No especificado");
-        bloque.appendChild(profesor);
-
-        if (!seccion.horario || seccion.horario.length === 0) {
-            const sinHorario = document.createElement("p");
-            sinHorario.textContent = "Esta seccion no tiene horario registrado.";
-            bloque.appendChild(sinHorario);
-        } else {
-            seccion.horario.forEach(diaHorario => {
-                const linea = document.createElement("p");
-
-                const horas = diaHorario.bloques.map(id => {
-                    const bloqueHorario = obtenerBloque(id);
-
-                    if (!bloqueHorario) {
-                        return "Bloque " + id;
-                    }
-
-                    return bloqueHorario.inicio + "-" + bloqueHorario.fin;
-                });
-
-                linea.textContent =
-                    diaHorario.dia + ": " + horas.join(", ") +
-                    (diaHorario.aula ? " | Aula: " + diaHorario.aula : "");
-
-                bloque.appendChild(linea);
-            });
-        }
-
-        resumen.appendChild(bloque);
     });
 }
 
@@ -161,9 +101,8 @@ function iniciarImpresion() {
         const resumen = document.getElementById("resumen-horario");
 
         if (!resumen || resumen.innerHTML.trim() === "") {
-            const mensaje = document.getElementById("mensaje-generador");
-            mensaje.textContent =
-                "Primero genera un horario y selecciona Ver este horario.";
+            document.getElementById("mensaje-generador").textContent =
+                "Primero genera un horario y pulsa Ver este horario.";
             return;
         }
 

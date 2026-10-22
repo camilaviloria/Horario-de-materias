@@ -20,11 +20,8 @@
 
             <div class="filtros">
                 <label for="busqueda">Buscar materia</label>
-                <input
-                    type="text"
-                    id="busqueda"
-                    placeholder="Codigo o nombre de la materia"
-                >
+                <input id="busqueda" type="text"
+                    placeholder="Codigo o nombre de la materia">
 
                 <label for="filtro-trimestre">Filtrar por trimestre</label>
                 <select id="filtro-trimestre">
@@ -38,23 +35,14 @@
 
         <section class="panel">
             <h2>Materias seleccionadas</h2>
-
-            <p>
-                Unidades de credito:
-                <span id="contador-uc">0</span>
-            </p>
-
+            <p>Unidades de credito: <span id="contador-uc">0</span></p>
             <div id="seleccion"></div>
             <p id="mensaje" role="status"></p>
         </section>
 
         <section class="panel">
             <h2>Generador de horarios</h2>
-
-            <p>
-                Selecciona tus materias y genera combinaciones
-                que no tengan choques de horario.
-            </p>
+            <p>Genera combinaciones de secciones sin choques de horario.</p>
 
             <button id="boton-generar" type="button">
                 Generar horarios
@@ -65,57 +53,8 @@
         </section>
 
         <section class="panel">
-            <h2>Agregar materia manualmente</h2>
-
-            <p>
-                Puedes registrar una materia temporal que no aparezca
-                en el catalogo original.
-            </p>
-
-            <form id="formulario-materia">
-                <label for="codigo-manual">Codigo</label>
-                <input
-                    id="codigo-manual"
-                    type="text"
-                    required
-                    maxlength="20"
-                    placeholder="Ejemplo: MAT101"
-                >
-
-                <label for="nombre-manual">Nombre de la materia</label>
-                <input
-                    id="nombre-manual"
-                    type="text"
-                    required
-                    maxlength="100"
-                    placeholder="Nombre de la materia"
-                >
-
-                <label for="trimestre-manual">Trimestre</label>
-                <input
-                    id="trimestre-manual"
-                    type="number"
-                    min="1"
-                    step="1"
-                    required
-                    placeholder="Ejemplo: 5"
-                >
-
-                <label for="uc-manual">Unidades de credito</label>
-                <input
-                    id="uc-manual"
-                    type="number"
-                    min="1"
-                    max="28"
-                    step="1"
-                    required
-                    placeholder="Ejemplo: 4"
-                >
-
-                <button type="submit">Agregar materia</button>
-            </form>
-
-            <p id="mensaje-manual" role="status"></p>
+            <h2>Rejilla semanal</h2>
+            <div id="rejilla-horario"></div>
         </section>
 
         <section class="panel">
@@ -126,6 +65,33 @@
                 Imprimir horario
             </button>
         </section>
+
+        <section class="panel">
+            <h2>Agregar materia manualmente</h2>
+            <p>Registra una materia temporal que no aparezca en el catalogo.</p>
+
+            <form id="formulario-materia">
+                <label for="codigo-manual">Codigo</label>
+                <input id="codigo-manual" type="text" required
+                    maxlength="20" placeholder="Ejemplo: MAT101">
+
+                <label for="nombre-manual">Nombre de la materia</label>
+                <input id="nombre-manual" type="text" required
+                    maxlength="100" placeholder="Nombre de la materia">
+
+                <label for="trimestre-manual">Trimestre</label>
+                <input id="trimestre-manual" type="number"
+                    min="1" step="1" required placeholder="Ejemplo: 5">
+
+                <label for="uc-manual">Unidades de credito</label>
+                <input id="uc-manual" type="number"
+                    min="1" max="28" step="1" required placeholder="Ejemplo: 4">
+
+                <button type="submit">Agregar materia</button>
+            </form>
+
+            <p id="mensaje-manual" role="status"></p>
+        </section>
     </main>
 
     <footer>
@@ -134,7 +100,6 @@
 
     <script src="data/bloques.js"></script>
     <script src="data/materias.js"></script>
-
     <script src="js/tiempo.js"></script>
     <script src="js/datos.js"></script>
     <script src="js/catalogo.js"></script>
