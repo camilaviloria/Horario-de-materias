@@ -111,5 +111,23 @@
     <script src="js/rejilla.js"></script>
     <script src="js/resumen.js"></script>
     <script src="js/app.js"></script>
+    <script src="js/choques.js"></script>
+    <script src="js/generador.js"></script>
+
+    <section class="panel" aria-labelledby="titulo-seleccion">
+      <h2 id="titulo-seleccion" class="panel__titulo">Selección</h2>
+      
+      <div id="seleccion-resumen" class="seleccion-resumen"></div>
+      <div id="seleccion-lista" class="seleccion-lista"></div>
+
+      <button id="btn-generar" class="btn btn--primario" style="width: 100%; margin-bottom: 20px;">
+        Generar horarios válidos
+      </button>
+
+      <h2 class="panel__titulo">Rejilla semanal</h2>
+      <div id="rejilla-controles" class="controles"></div>
+      <div id="rejilla" class="rejilla" role="grid" aria-label="Horario semanal"></div>
+    </section>
+
 </body>
 </html>
