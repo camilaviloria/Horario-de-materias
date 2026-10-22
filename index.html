@@ -1,133 +1,34 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AulaPlan - Armador de Horarios</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/print.css" media="print">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CamiSim Horarios</title>
+<link rel="stylesheet" href="css/styles.css"><link rel="stylesheet" href="css/print.css">
 </head>
 <body>
-    <header>
-        <h1>AulaPlan</h1>
-        <p>Organiza tus materias y crea tu horario universitario.</p>
-    </header>
-
-    <main>
-        <section class="panel">
-            <h2>Catalogo de materias</h2>
-
-            <div class="filtros">
-                <label for="busqueda">Buscar materia</label>
-                <input id="busqueda" type="text"
-                    placeholder="Codigo o nombre de la materia">
-
-                <label for="filtro-trimestre">Filtrar por trimestre</label>
-                <select id="filtro-trimestre">
-                    <option value="">Todos los trimestres</option>
-                </select>
-            </div>
-
-            <p>Total de materias: <span id="total-materias">0</span></p>
-            <div id="catalogo"></div>
-        </section>
-
-        <section class="panel">
-            <h2>Materias seleccionadas</h2>
-            <p>Unidades de credito: <span id="contador-uc">0</span></p>
-            <div id="seleccion"></div>
-            <p id="mensaje" role="status"></p>
-        </section>
-
-        <section class="panel">
-            <h2>Generador de horarios</h2>
-            <p>Genera combinaciones de secciones sin choques de horario.</p>
-
-            <button id="boton-generar" type="button">
-                Generar horarios
-            </button>
-
-            <p id="mensaje-generador" role="status"></p>
-            <div id="resultados-horarios"></div>
-        </section>
-
-        <section class="panel">
-            <h2>Rejilla semanal</h2>
-            <div id="rejilla-horario"></div>
-        </section>
-
-        <section class="panel">
-            <h2>Resumen del horario</h2>
-            <div id="resumen-horario"></div>
-
-            <button id="boton-imprimir" type="button">
-                Imprimir horario
-            </button>
-        </section>
-
-        <section class="panel">
-            <h2>Agregar materia manualmente</h2>
-            <p>Registra una materia temporal que no aparezca en el catalogo.</p>
-
-            <form id="formulario-materia">
-                <label for="codigo-manual">Codigo</label>
-                <input id="codigo-manual" type="text" required
-                    maxlength="20" placeholder="Ejemplo: MAT101">
-
-                <label for="nombre-manual">Nombre de la materia</label>
-                <input id="nombre-manual" type="text" required
-                    maxlength="100" placeholder="Nombre de la materia">
-
-                <label for="trimestre-manual">Trimestre</label>
-                <input id="trimestre-manual" type="number"
-                    min="1" step="1" required placeholder="Ejemplo: 5">
-
-                <label for="uc-manual">Unidades de credito</label>
-                <input id="uc-manual" type="number"
-                    min="1" max="28" step="1" required placeholder="Ejemplo: 4">
-
-                <button type="submit">Agregar materia</button>
-            </form>
-
-            <p id="mensaje-manual" role="status"></p>
-        </section>
-    </main>
-
-    <footer>
-        <p>AulaPlan - Proyecto universitario</p>
-    </footer>
-
-    <script src="data/bloques.js"></script>
-    <script src="data/materias.js"></script>
-    <script src="js/tiempo.js"></script>
-    <script src="js/datos.js"></script>
-    <script src="js/catalogo.js"></script>
-    <script src="js/seleccion.js"></script>
-    <script src="js/choques.js"></script>
-    <script src="js/generador.js"></script>
-    <script src="js/formulario.js"></script>
-    <script src="js/preferencias.js"></script>
-    <script src="js/rejilla.js"></script>
-    <script src="js/resumen.js"></script>
-    <script src="js/app.js"></script>
-    <script src="js/choques.js"></script>
-    <script src="js/generador.js"></script>
-
-    <section class="panel" aria-labelledby="titulo-seleccion">
-      <h2 id="titulo-seleccion" class="panel__titulo">Selección</h2>
-      
-      <div id="seleccion-resumen" class="seleccion-resumen"></div>
-      <div id="seleccion-lista" class="seleccion-lista"></div>
-
-      <button id="btn-generar" class="btn btn--primario" style="width: 100%; margin-bottom: 20px;">
-        Generar horarios válidos
-      </button>
-
-      <h2 class="panel__titulo">Rejilla semanal</h2>
-      <div id="rejilla-controles" class="controles"></div>
-      <div id="rejilla" class="rejilla" role="grid" aria-label="Horario semanal"></div>
-    </section>
-
-</body>
-</html>
+<header><div><b>CamiSim Horarios</b><small>Camila + Simon · planificacion academica</small></div><span>ARMADOR ACADEMICO</span></header>
+<main>
+<section class="hero"><div><small>PLANIFICA CON CLARIDAD</small><h1>Tu horario ideal <em>empieza aqui.</em></h1><p>Explora materias, combina secciones y encuentra horarios compatibles con tus preferencias.</p></div><aside><b id="totalCatalogo">0</b><span>materias en catalogo</span></aside></section>
+<div id="mensaje" class="mensaje" aria-live="polite"></div>
+<div class="layout"><div class="left">
+<section class="card"><h2><i>01</i> Catalogo</h2><input id="buscar" aria-label="Buscar por codigo o nombre" placeholder="Buscar por codigo o nombre"><div class="row"><select id="filtroTrim" aria-label="Filtrar por trimestre"><option value="">Todos los trimestres</option></select><button id="agregarTrim" type="button">Agregar trimestre completo</button></div><div id="catalogo" class="scroll"></div></section>
+<section class="card"><h2><i>02</i> Mi seleccion</h2><div class="uc"><span><b id="ucActual">0</b> / <b id="limiteLabel">28</b> UC</span><label class="sr-only" for="limite">Limite de UC</label><input id="limite" type="number" min="1" value="28"></div><p><b id="cantSeleccion">0</b> materias seleccionadas</p><div id="seleccion"></div><div id="incompatibles" aria-live="polite"></div></section>
+<section class="card"><h2><i>03</i> Materia manual</h2>
+<form id="formManual" novalidate>
+<div class="row"><div class="field"><label for="mCodigo">Codigo</label><input id="mCodigo"><small class="field-error" id="errCodigo"></small></div><div class="field"><label for="mNombre">Nombre</label><input id="mNombre"><small class="field-error" id="errNombre"></small></div></div>
+<div class="row"><div class="field"><label for="mTrim">Trimestre</label><input id="mTrim" type="number" min="1"><small class="field-error" id="errTrim"></small></div><div class="field"><label for="mUc">UC (1-5)</label><input id="mUc" type="number" min="1" max="5"><small class="field-error" id="errUc"></small></div></div>
+<div class="manual-head"><div><b>Secciones</b><p class="help">Cada materia debe tener al menos una seccion y cada seccion al menos una sesion.</p></div><button id="addSection" type="button" class="ghost small-btn">+ Agregar seccion</button></div>
+<div id="manualSections"></div><small class="field-error" id="errSecciones"></small>
+<div class="row"><button id="cancelEdit" type="button" class="ghost hidden">Cancelar edicion</button><button type="submit">Guardar materia</button></div>
+</form><div id="manuales"></div></section>
+</div><div class="right">
+<section class="card"><h2><i>04</i> Preferencias</h2><div class="prefs"><fieldset><legend>Dias libres</legend><label><input type="checkbox" name="libre" value="LUN">Lun</label><label><input type="checkbox" name="libre" value="MAR">Mar</label><label><input type="checkbox" name="libre" value="MIE">Mie</label><label><input type="checkbox" name="libre" value="JUE">Jue</label><label><input type="checkbox" name="libre" value="VIE">Vie</label><label><input type="checkbox" name="libre" value="SAB">Sab</label></fieldset><label>No entrar antes de <select id="minEntrada"><option value="">Sin limite</option></select></label><label>Salir a mas tardar <select id="maxSalida"><option value="">Sin limite</option></select></label></div><div class="row"><button id="generar" type="button">Generar horarios validos</button><button id="limpiar" type="button" class="ghost">Limpiar seleccion</button></div><p id="estadoResultados">Agrega materias para comenzar.</p></section>
+<section class="card"><div class="titleRow"><h2><i>05</i> Resultados</h2><select id="orden" aria-label="Ordenar resultados"><option value="dias">Menos dias de asistencia</option><option value="huecos">Menos horas muertas</option><option value="salida">Salida mas temprana</option></select></div><div id="vacio" class="empty">Aun no hay horarios generados.</div><div id="resultado" class="hidden result-transition"><div class="nav"><b id="posicion"></b><span><button id="anterior" type="button" class="ghost">Anterior</button><button id="siguiente" type="button" class="ghost">Siguiente</button></span></div><div id="metricas" class="metrics"></div><div class="grid-wrap"><div id="rejilla" class="grid"></div></div><div class="row end"><button id="elegir" type="button">Elegir este horario</button><button id="imprimir" type="button" class="ghost">Imprimir</button></div></div></section>
+<section class="card final"><h2><i>06</i> Horario definitivo</h2><div id="resumen" class="empty">Todavia no has elegido un horario definitivo.</div></section>
+</div></div>
+<footer>CamiSim Horarios · Camila y Simon · Proyecto de Desarrollo de Lenguajes para Clientes Web</footer>
+</main>
+<dialog id="detalle"><button id="cerrarDetalle" class="close" type="button" aria-label="Cerrar detalle">×</button><div id="detalleBody"></div></dialog>
+<dialog id="confirmar"><h2>Confirmar eliminacion</h2><p id="confirmarTexto"></p><div class="row"><button id="cancelarEliminar" type="button" class="ghost">Cancelar</button><button id="confirmarEliminar" type="button" class="danger-solid">Eliminar</button></div></dialog>
+<script src="data/bloques.js"></script><script src="data/materias.js"></script><script src="js/tiempo.js"></script><script src="js/datos.js"></script><script src="js/catalogo.js"></script><script src="js/seleccion.js"></script><script src="js/formulario.js"></script><script src="js/choques.js"></script><script src="js/generador.js"></script><script src="js/preferencias.js"></script><script src="js/rejilla.js"></script><script src="js/resumen.js"></script><script src="js/app.js"></script>
+</body></html>
