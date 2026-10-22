@@ -3,38 +3,86 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>AulaPlan</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AulaPlan | Horario universitario</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+    <header class="encabezado">
+        <div class="marca">
+            <span class="marca-icono">A</span>
+            <div>
+                <h1>AulaPlan</h1>
+                <p>Tu semana, mejor organizada.</p>
+            </div>
+        </div>
+        <span class="etiqueta">PLANIFICADOR ACADEMICO</span>
+    </header>
 
-    <h1>AulaPlan</h1>
-    <p>Organiza tu horario universitario</p>
+    <main class="contenedor">
+        <section class="bienvenida">
+            <p class="sobre-titulo">ORGANIZA TU TRIMESTRE</p>
+            <h2>Construye un horario que funcione para ti.</h2>
+            <p>Explora las materias, selecciona tus opciones y prepara tu semana.</p>
+        </section>
 
-    <h2>Materias disponibles</h2>
+        <section class="panel">
+            <div class="panel-titulo">
+                <div>
+                    <p class="sobre-titulo">PASO 01</p>
+                    <h2>Materias disponibles</h2>
+                </div>
+                <span id="total-materias" class="contador">0 materias</span>
+            </div>
 
-    <div class="materia">
-        <span>Matematica</span>
-        <button onclick="agregarMateria('Matematica')">Agregar</button>
-    </div>
+            <div class="filtros">
+                <input id="busqueda" type="search"
+                    placeholder="Buscar por codigo o nombre..."
+                    aria-label="Buscar materias">
 
-    <div class="materia">
-        <span>Programacion</span>
-        <button onclick="agregarMateria('Programacion')">Agregar</button>
-    </div>
+                <select id="filtro-trimestre" aria-label="Filtrar por trimestre">
+                    <option value="">Todos los trimestres</option>
+                </select>
+            </div>
 
-    <div class="materia">
-        <span>Electronica</span>
-        <button onclick="agregarMateria('Electronica')">Agregar</button>
-    </div>
+            <div id="catalogo" class="catalogo">
+                <p class="estado-vacio">Cargando materias...</p>
+            </div>
+        </section>
 
-    <h2>Mis materias</h2>
+        <section class="panel panel-seleccion">
+            <div class="panel-titulo">
+                <div>
+                    <p class="sobre-titulo">PASO 02</p>
+                    <h2>Mi seleccion</h2>
+                </div>
+                <span id="contador-uc" class="contador">0 / 28 UC</span>
+            </div>
 
-    <ul id="seleccion"></ul>
+            <div id="seleccion" class="seleccion">
+                <p class="estado-vacio">Todavia no has seleccionado materias.</p>
+            </div>
 
-    <p id="contador">Materias seleccionadas: 0</p>
+            <p id="mensaje" class="mensaje" role="status" aria-live="polite"></p>
+        </section>
+    </main>
 
+    <footer>
+        <p>AulaPlan · Planifica, compara y organiza tu horario.</p>
+    </footer>
+
+    <script src="data/bloques.js"></script>
+    <script src="data/materias.js"></script>
+    <script src="js/tiempo.js"></script>
+    <script src="js/datos.js"></script>
+    <script src="js/catalogo.js"></script>
+    <script src="js/seleccion.js"></script>
+    <script src="js/choques.js"></script>
+    <script src="js/generador.js"></script>
+    <script src="js/formulario.js"></script>
+    <script src="js/preferencias.js"></script>
+    <script src="js/rejilla.js"></script>
+    <script src="js/resumen.js"></script>
     <script src="js/app.js"></script>
-
 </body>
 </html>
