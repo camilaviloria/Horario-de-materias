@@ -3,37 +3,113 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>AulaPlan</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AulaPlan - Armador de Horarios</title>
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/print.css" media="print">
 </head>
 <body>
+    <header>
+        <h1>AulaPlan</h1>
+        <p>Organiza tus materias y crea tu horario universitario.</p>
+    </header>
 
-    <h1>AulaPlan</h1>
-    <p>Organiza tu horario universitario</p>
+    <main>
+        <section class="panel">
+            <h2>Catalogo de materias</h2>
 
-    <h2>Materias disponibles</h2>
+            <div class="filtros">
+                <label for="busqueda">Buscar materia</label>
+                <input id="busqueda" type="text"
+                    placeholder="Codigo o nombre de la materia">
 
-    <div class="materia">
-        <span>Matematica</span>
-        <button onclick="agregarMateria('Matematica')">Agregar</button>
-    </div>
+                <label for="filtro-trimestre">Filtrar por trimestre</label>
+                <select id="filtro-trimestre">
+                    <option value="">Todos los trimestres</option>
+                </select>
+            </div>
 
-    <div class="materia">
-        <span>Programacion</span>
-        <button onclick="agregarMateria('Programacion')">Agregar</button>
-    </div>
+            <p>Total de materias: <span id="total-materias">0</span></p>
+            <div id="catalogo"></div>
+        </section>
 
-    <div class="materia">
-        <span>Electronica</span>
-        <button onclick="agregarMateria('Electronica')">Agregar</button>
-    </div>
+        <section class="panel">
+            <h2>Materias seleccionadas</h2>
+            <p>Unidades de credito: <span id="contador-uc">0</span></p>
+            <div id="seleccion"></div>
+            <p id="mensaje" role="status"></p>
+        </section>
 
-    <h2>Mis materias</h2>
+        <section class="panel">
+            <h2>Generador de horarios</h2>
+            <p>Genera combinaciones de secciones sin choques de horario.</p>
 
-    <ul id="seleccion"></ul>
+            <button id="boton-generar" type="button">
+                Generar horarios
+            </button>
 
-    <p id="contador">Materias seleccionadas: 0</p>
+            <p id="mensaje-generador" role="status"></p>
+            <div id="resultados-horarios"></div>
+        </section>
 
+        <section class="panel">
+            <h2>Rejilla semanal</h2>
+            <div id="rejilla-horario"></div>
+        </section>
+
+        <section class="panel">
+            <h2>Resumen del horario</h2>
+            <div id="resumen-horario"></div>
+
+            <button id="boton-imprimir" type="button">
+                Imprimir horario
+            </button>
+        </section>
+
+        <section class="panel">
+            <h2>Agregar materia manualmente</h2>
+            <p>Registra una materia temporal que no aparezca en el catalogo.</p>
+
+            <form id="formulario-materia">
+                <label for="codigo-manual">Codigo</label>
+                <input id="codigo-manual" type="text" required
+                    maxlength="20" placeholder="Ejemplo: MAT101">
+
+                <label for="nombre-manual">Nombre de la materia</label>
+                <input id="nombre-manual" type="text" required
+                    maxlength="100" placeholder="Nombre de la materia">
+
+                <label for="trimestre-manual">Trimestre</label>
+                <input id="trimestre-manual" type="number"
+                    min="1" step="1" required placeholder="Ejemplo: 5">
+
+                <label for="uc-manual">Unidades de credito</label>
+                <input id="uc-manual" type="number"
+                    min="1" max="28" step="1" required placeholder="Ejemplo: 4">
+
+                <button type="submit">Agregar materia</button>
+            </form>
+
+            <p id="mensaje-manual" role="status"></p>
+        </section>
+    </main>
+
+    <footer>
+        <p>AulaPlan - Proyecto universitario</p>
+    </footer>
+
+    <script src="data/bloques.js"></script>
+    <script src="data/materias.js"></script>
+    <script src="js/tiempo.js"></script>
+    <script src="js/datos.js"></script>
+    <script src="js/catalogo.js"></script>
+    <script src="js/seleccion.js"></script>
+    <script src="js/choques.js"></script>
+    <script src="js/generador.js"></script>
+    <script src="js/formulario.js"></script>
+    <script src="js/preferencias.js"></script>
+    <script src="js/rejilla.js"></script>
+    <script src="js/resumen.js"></script>
     <script src="js/app.js"></script>
     <script src="js/choques.js"></script>
     <script src="js/generador.js"></script>
