@@ -33,7 +33,6 @@
             </div>
 
             <p>Total de materias: <span id="total-materias">0</span></p>
-
             <div id="catalogo"></div>
         </section>
 
@@ -46,8 +45,23 @@
             </p>
 
             <div id="seleccion"></div>
+            <p id="mensaje" role="status"></p>
+        </section>
 
-            <p id="mensaje"></p>
+        <section class="panel">
+            <h2>Generador de horarios</h2>
+
+            <p>
+                Selecciona tus materias y genera combinaciones
+                que no tengan choques de horario.
+            </p>
+
+            <button id="boton-generar" type="button">
+                Generar horarios
+            </button>
+
+            <p id="mensaje-generador" role="status"></p>
+            <div id="resultados-horarios"></div>
         </section>
 
         <section class="panel">
@@ -82,6 +96,7 @@
                     id="trimestre-manual"
                     type="number"
                     min="1"
+                    step="1"
                     required
                     placeholder="Ejemplo: 5"
                 >
@@ -92,6 +107,7 @@
                     type="number"
                     min="1"
                     max="28"
+                    step="1"
                     required
                     placeholder="Ejemplo: 4"
                 >
@@ -100,6 +116,15 @@
             </form>
 
             <p id="mensaje-manual" role="status"></p>
+        </section>
+
+        <section class="panel">
+            <h2>Resumen del horario</h2>
+            <div id="resumen-horario"></div>
+
+            <button id="boton-imprimir" type="button">
+                Imprimir horario
+            </button>
         </section>
     </main>
 
