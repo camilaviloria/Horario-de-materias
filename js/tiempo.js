@@ -1,1 +1,23 @@
-function aMin(h){const [x,y]=h.split(':').map(Number);return x*60+y}function aHora(m){return String(Math.floor(m/60)).padStart(2,'0')+':'+String(Math.round(m%60)).padStart(2,'0')}const DIAS=['LUN','MAR','MIE','JUE','VIE','SAB'];function diaNombre(d){return ({LUN:'Lun',MAR:'Mar',MIE:'Mie',JUE:'Jue',VIE:'Vie',SAB:'Sab'})[d]||d}function bloque(id){return BLOQUES.find(b=>b.id===id)}function intervalo(s){const bs=s.bloques.map(bloque).filter(Boolean);return bs.length?{inicio:Math.min(...bs.map(b=>aMin(b.inicio))),fin:Math.max(...bs.map(b=>aMin(b.fin)))}:null}
+function aMin(h){
+    const [x,y]=h.split(':').map(Number);
+    return x*60+y
+}
+function aHora(m){
+    return String(Math.floor(m/60)).padStart(2,'0')+':'+String(Math.round(m%60)).padStart(2,'0')
+}
+const DIAS=['LUN','MAR','MIE','JUE','VIE','SAB'];
+function diaNombre(d){
+    return ({
+        LUN:'Lun',MAR:'Mar',MIE:'Mie',JUE:'Jue',VIE:'Vie',SAB:'Sab'
+    })[d]||d
+}
+function bloque(id){
+    return BLOQUES.find(b=>b.id===id)
+}
+function intervalo(s){
+    const bs=s.bloques.map(bloque).filter(Boolean);
+    return bs.length?{
+        inicio:Math.min(...bs.map(b=>aMin(b.inicio))),fin:Math.max(...bs.map(b=>aMin(b.fin)))
+    }:null
+}
+

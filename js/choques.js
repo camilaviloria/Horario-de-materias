@@ -1,1 +1,30 @@
-function chocanSesiones(a,b){if(a.dia!==b.dia)return false;const x=intervalo(a),y=intervalo(b);return x&&y&&x.inicio<y.fin&&y.inicio<x.fin}function chocanSecciones(a,b){return a.horario.some(x=>b.horario.some(y=>chocanSesiones(x,y)))}function choqueInterno(sec){for(let i=0;i<sec.horario.length;i++)for(let j=i+1;j<sec.horario.length;j++)if(chocanSesiones(sec.horario[i],sec.horario[j]))return true;return false}function incompatibles(){const out=[];for(let i=0;i<estado.seleccion.length;i++)for(let j=i+1;j<estado.seleccion.length;j++){const a=estado.seleccion[i],b=estado.seleccion[j],sa=disponibles(a),sb=disponibles(b);if(sa.length&&sb.length&&sa.every(x=>sb.every(y=>chocanSecciones(x,y))))out.push(a.codigo+' y '+b.codigo)}return out}
+//
+function chocanSesiones(a,b){
+    if(a.dia!==b.dia)return false;
+    const x=intervalo(a),y=intervalo(b);
+    return x&&y&&x.inicio<y.fin&&y.inicio<x.fin
+}
+function chocanSecciones(a,b){
+    return a.horario.some(x=>b.horario.some(y=>chocanSesiones(x,y)))
+}
+function choqueInterno(sec){
+    for(let i=0;
+    i<sec.horario.length;
+    i++)for(let j=i+1;
+    j<sec.horario.length;
+    j++)if(chocanSesiones(sec.horario[i],sec.horario[j]))return true;
+    return false
+}
+function incompatibles(){
+    const out=[];
+    for(let i=0;
+    i<estado.seleccion.length;
+    i++)for(let j=i+1;
+    j<estado.seleccion.length;
+    j++){
+        const a=estado.seleccion[i],b=estado.seleccion[j],sa=disponibles(a),sb=disponibles(b);
+        if(sa.length&&sb.length&&sa.every(x=>sb.every(y=>chocanSecciones(x,y))))out.push(a.codigo+' y '+b.codigo)
+    }
+    return out
+}
+

@@ -1,1 +1,15 @@
-function aplicarPreferencias(){const libres=[...document.querySelectorAll('[name=libre]:checked')].map(x=>x.value),min=minEntrada.value?Number(minEntrada.value):null,max=maxSalida.value?Number(maxSalida.value):null;estado.filtrados=estado.base.filter(r=>{const sesiones=r.flatMap(x=>x.seccion.horario),m=metricas(r);return !sesiones.some(s=>libres.includes(s.dia))&&(min===null||m.entrada>=min)&&(max===null||m.salida<=max)});const modo=orden.value;estado.filtrados.sort((a,b)=>{const x=metricas(a),y=metricas(b);return modo==='huecos'?x.huecos-y.huecos||x.dias-y.dias:modo==='salida'?x.promSalida-y.promSalida||x.dias-y.dias:x.dias-y.dias||x.huecos-y.huecos});estado.indice=Math.min(estado.indice,Math.max(0,estado.filtrados.length-1));renderResultados()}
+function aplicarPreferencias(){
+    const libres=[...document.querySelectorAll('[name=libre]:checked')].map(x=>x.value),min=minEntrada.value?Number(minEntrada.value):null,max=maxSalida.value?Number(maxSalida.value):null;
+    estado.filtrados=estado.base.filter(r=>{
+        const sesiones=r.flatMap(x=>x.seccion.horario),m=metricas(r);
+        return !sesiones.some(s=>libres.includes(s.dia))&&(min===null||m.entrada>=min)&&(max===null||m.salida<=max)
+    });
+    const modo=orden.value;
+    estado.filtrados.sort((a,b)=>{
+        const x=metricas(a),y=metricas(b);
+        return modo==='huecos'?x.huecos-y.huecos||x.dias-y.dias:modo==='salida'?x.promSalida-y.promSalida||x.dias-y.dias:x.dias-y.dias||x.huecos-y.huecos
+    });
+    estado.indice=Math.min(estado.indice,Math.max(0,estado.filtrados.length-1));
+    renderResultados()
+}
+

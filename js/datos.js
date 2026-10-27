@@ -1,1 +1,41 @@
-const estado={manuales:[],seleccion:[],limite:28,fijos:{},excluidos:{},base:[],filtrados:[],indice:0,definitivo:null,editando:null};function catalogo(){return [...MATERIAS.map(m=>({...m,manual:false})),...estado.manuales.map(m=>({...m,manual:true}))]}function key(x){return String(x).trim().toUpperCase()}function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c])}function disponibles(m){let s=m.secciones||[];const ex=new Set(estado.excluidos[m.codigo]||[]);s=s.filter(x=>!ex.has(x.id));if(estado.fijos[m.codigo])s=s.filter(x=>x.id===estado.fijos[m.codigo]);return s}function ucTotal(){return estado.seleccion.reduce((a,m)=>a+Number(m.uc),0)}function invalidar(){estado.base=[];estado.filtrados=[];estado.indice=0;estado.definitivo=null;renderResultados();renderResumen()}
+const estado={
+    manuales:[],seleccion:[],limite:28,fijos:{
+        
+    },excluidos:{
+        
+    },base:[],filtrados:[],indice:0,definitivo:null,editando:null
+};
+function catalogo(){
+    return [...MATERIAS.map(m=>({
+        ...m,manual:false
+    })),...estado.manuales.map(m=>({
+        ...m,manual:true
+    }))]
+}
+function key(x){
+    return String(x).trim().toUpperCase()
+}
+function esc(s){
+    return String(s??'').replace(/[&<>"']/g,c=>({
+        '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+    })[c])
+}
+function disponibles(m){
+    let s=m.secciones||[];
+    const ex=new Set(estado.excluidos[m.codigo]||[]);
+    s=s.filter(x=>!ex.has(x.id));
+    if(estado.fijos[m.codigo])s=s.filter(x=>x.id===estado.fijos[m.codigo]);
+    return s
+}
+function ucTotal(){
+    return estado.seleccion.reduce((a,m)=>a+Number(m.uc),0)
+}
+function invalidar(){
+    estado.base=[];
+    estado.filtrados=[];
+    estado.indice=0;
+    estado.definitivo=null;
+    renderResultados();
+    renderResumen()
+}
+
