@@ -1,1 +1,46 @@
-function generarTodas(){const ms=[...estado.seleccion].sort((a,b)=>disponibles(a).length-disponibles(b).length),res=[],parcial=[];function bt(i){if(i===ms.length){res.push([...parcial]);return}for(const s of disponibles(ms[i])){if(parcial.some(x=>chocanSecciones(x.seccion,s)))continue;parcial.push({materia:ms[i],seccion:s});bt(i+1);parcial.pop()}}if(ms.length&&ms.every(m=>disponibles(m).length))bt(0);return res}function metricas(r){const por={};r.forEach(x=>x.seccion.horario.forEach(s=>{const z=intervalo(s);(por[s.dia]??=[]).push(z)}));let huecos=0,entrada=Infinity,salida=0,prom=0;Object.values(por).forEach(a=>{a.sort((x,y)=>x.inicio-y.inicio);entrada=Math.min(entrada,a[0].inicio);salida=Math.max(salida,a.at(-1).fin);prom+=a.at(-1).fin;for(let i=1;i<a.length;i++)huecos+=Math.max(0,a[i].inicio-a[i-1].fin)});const dias=Object.keys(por).length;return {dias,huecos,entrada:entrada===Infinity?0:entrada,salida,promSalida:dias?prom/dias:0}}
+function generarTodas(){
+    const ms=[...estado.seleccion].sort((a,b)=>disponibles(a).length-disponibles(b).length),res=[],parcial=[];
+    function bt(i){
+        if(i===ms.length){
+            res.push([...parcial]);
+            return
+        }
+        for(const s of disponibles(ms[i])){
+            //
+            if(parcial.some(x=>chocanSecciones(x.seccion,s)))continue;
+            parcial.push({
+                materia:ms[i],seccion:s
+            });
+            bt(i+1);
+            parcial.pop()
+        }
+        
+    }
+    if(ms.length&&ms.every(m=>disponibles(m).length))bt(0);
+    return res
+}
+function metricas(r){
+    const por={
+        
+    };
+    r.forEach(x=>x.seccion.horario.forEach(s=>{
+        const z=intervalo(s);
+        (por[s.dia]??=[]).push(z)
+    }));
+    let huecos=0,entrada=Infinity,salida=0,prom=0;
+    Object.values(por).forEach(a=>{
+        a.sort((x,y)=>x.inicio-y.inicio);
+        entrada=Math.min(entrada,a[0].inicio);
+        salida=Math.max(salida,a.at(-1).fin);
+        prom+=a.at(-1).fin;
+        for(let i=1;
+        i<a.length;
+        i++)huecos+=Math.max(0,a[i].inicio-a[i-1].fin)
+    });
+    const dias=Object.keys(por).length;
+    return {
+        dias,huecos,entrada:entrada===Infinity?0:entrada,salida,promSalida:dias?prom/dias:0
+    }
+    
+}
+

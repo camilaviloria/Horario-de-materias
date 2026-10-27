@@ -1,3 +1,99 @@
-function msg(t,tipo='info'){mensaje.textContent=t;mensaje.className='mensaje show '+tipo;setTimeout(()=>mensaje.classList.remove('show'),4500)}
-function llenarHoras(){const horas=[...new Set(BLOQUES.flatMap(b=>[aMin(b.inicio),aMin(b.fin)]))].sort((a,b)=>a-b);minEntrada.innerHTML='<option value="">Sin limite</option>'+horas.map(x=>`<option value="${x}">${aHora(x)}</option>`).join('');maxSalida.innerHTML='<option value="">Sin limite</option>'+horas.map(x=>`<option value="${x}">${aHora(x)}</option>`).join('')}
-document.addEventListener('DOMContentLoaded',()=>{iniciarCatalogo();iniciarFormulario();renderSeleccion();renderManuales();llenarHoras();renderResultados();renderResumen();buscar.oninput=renderCatalogo;filtroTrim.onchange=renderCatalogo;agregarTrim.onclick=()=>{const t=filtroTrim.value;if(!t)return msg('Selecciona un trimestre primero.','error');const ms=catalogo().filter(m=>String(m.trimestre)===t&&!estado.seleccion.some(x=>x.codigo===m.codigo)),extra=ms.reduce((n,m)=>n+Number(m.uc),0),n=ucTotal()+extra;if(n>estado.limite)return msg(`No se agrego ninguna materia: excederia el limite por ${n-estado.limite} UC.`,'error');estado.seleccion.push(...ms);invalidar();renderSeleccion();renderCatalogo();msg(`Se agregaron ${ms.length} materias del trimestre ${t}.`,'success')};limite.onchange=()=>{const n=Number(limite.value);if(!Number.isInteger(n)||n<1||n<ucTotal()){limite.value=estado.limite;return msg('El limite debe ser entero positivo y no menor a las UC actuales.','error')}estado.limite=n;limiteLabel.textContent=n;msg('Limite de UC actualizado.','success')};limpiar.onclick=()=>{estado.seleccion=[];estado.fijos={};estado.excluidos={};invalidar();renderSeleccion();renderCatalogo();msg('Seleccion limpiada.','info')};generar.onclick=()=>{if(!estado.seleccion.length)return msg('Selecciona al menos una materia.','error');estado.base=generarTodas();estado.indice=0;aplicarPreferencias();if(!estado.base.length){const p=incompatibles();msg('No existen combinaciones validas.'+(p.length?' Incompatibles: '+p.join(', '):''),'error')}else msg(`Se encontraron ${estado.base.length} combinaciones validas.`,'success')};document.querySelectorAll('[name=libre]').forEach(x=>x.onchange=()=>estado.base.length&&aplicarPreferencias());minEntrada.onchange=maxSalida.onchange=orden.onchange=()=>estado.base.length&&aplicarPreferencias();anterior.onclick=()=>{if(estado.indice>0){estado.indice--;renderResultados()}};siguiente.onclick=()=>{if(estado.indice<estado.filtrados.length-1){estado.indice++;renderResultados()}};elegir.onclick=()=>{estado.definitivo=estado.filtrados[estado.indice];renderResumen();msg('Horario definitivo elegido.','success')};imprimir.onclick=()=>{if(!estado.definitivo)estado.definitivo=estado.filtrados[estado.indice];renderResumen();window.print()};cerrarDetalle.onclick=()=>detalle.close();cancelEdit.onclick=cancelarEdicion;cancelarEliminar.onclick=()=>confirmar.close();confirmarEliminar.onclick=eliminarManualConfirmado});
+function msg(t,tipo='info'){
+    mensaje.textContent=t;
+    mensaje.className='mensaje show '+tipo;
+    setTimeout(()=>mensaje.classList.remove('show'),4500)
+}
+
+function llenarHoras(){
+    const horas=[...new Set(BLOQUES.flatMap(b=>[aMin(b.inicio),aMin(b.fin)]))].sort((a,b)=>a-b);
+    minEntrada.innerHTML='<option value="">Sin limite</option>'+horas.map(x=>`<option value="${x}">${aHora(x)}</option>`).join('');
+    maxSalida.innerHTML='<option value="">Sin limite</option>'+horas.map(x=>`<option value="${x}">${aHora(x)}</option>`).join('')
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+    iniciarCatalogo();
+    iniciarFormulario();
+    renderSeleccion();
+    renderManuales();
+    llenarHoras();
+    renderResultados();
+    renderResumen();
+    buscar.oninput=renderCatalogo;
+    filtroTrim.onchange=renderCatalogo;
+    agregarTrim.onclick=()=>{
+        const t=filtroTrim.value;
+        if(!t)return msg('Selecciona un trimestre primero.','error');
+        const ms=catalogo().filter(m=>String(m.trimestre)===t&&!estado.seleccion.some(x=>x.codigo===m.codigo)),extra=ms.reduce((n,m)=>n+Number(m.uc),0),n=ucTotal()+extra;
+        if(n>estado.limite)return msg(`No se agrego ninguna materia: excederia el limite por ${n-estado.limite} UC.`,'error');
+        estado.seleccion.push(...ms);
+        invalidar();
+        renderSeleccion();
+        renderCatalogo();
+        msg(`Se agregaron ${ms.length} materias del trimestre ${t}.`,'success')
+    };
+    limite.onchange=()=>{
+        const n=Number(limite.value);
+        if(!Number.isInteger(n)||n<1||n<ucTotal()){
+            limite.value=estado.limite;
+            return msg('El limite debe ser entero positivo y no menor a las UC actuales.','error')
+        }
+        estado.limite=n;
+        limiteLabel.textContent=n;
+        msg('Limite de UC actualizado.','success')
+    };
+    limpiar.onclick=()=>{
+        estado.seleccion=[];
+        estado.fijos={
+            
+        };
+        estado.excluidos={
+            
+        };
+        invalidar();
+        renderSeleccion();
+        renderCatalogo();
+        msg('Seleccion limpiada.','info')
+    };
+    generar.onclick=()=>{
+        if(!estado.seleccion.length)return msg('Selecciona al menos una materia.','error');
+        estado.base=generarTodas();
+        estado.indice=0;
+        aplicarPreferencias();
+        if(!estado.base.length){
+            const p=incompatibles();
+            msg('No existen combinaciones validas.'+(p.length?' Incompatibles: '+p.join(', '):''),'error')
+        }
+        else msg(`Se encontraron ${estado.base.length} combinaciones validas.`,'success')
+    };
+    document.querySelectorAll('[name=libre]').forEach(x=>x.onchange=()=>estado.base.length&&aplicarPreferencias());
+    minEntrada.onchange=maxSalida.onchange=orden.onchange=()=>estado.base.length&&aplicarPreferencias();
+    anterior.onclick=()=>{
+        if(estado.indice>0){
+            estado.indice--;
+            renderResultados()
+        }
+        
+    };
+    siguiente.onclick=()=>{
+        if(estado.indice<estado.filtrados.length-1){
+            estado.indice++;
+            renderResultados()
+        }
+        
+    };
+    elegir.onclick=()=>{
+        estado.definitivo=estado.filtrados[estado.indice];
+        renderResumen();
+        msg('Horario definitivo elegido.','success')
+    };
+    imprimir.onclick=()=>{
+        if(!estado.definitivo)estado.definitivo=estado.filtrados[estado.indice];
+        renderResumen();
+        window.print()
+    };
+    cerrarDetalle.onclick=()=>detalle.close();
+    cancelEdit.onclick=cancelarEdicion;
+    cancelarEliminar.onclick=()=>confirmar.close();
+    confirmarEliminar.onclick=eliminarManualConfirmado
+});
+
